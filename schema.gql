@@ -1,0 +1,242 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  _id: ID!
+  email: String!
+  password: String!
+  name: String
+  mobileNo: String
+}
+
+type Address {
+  """city"""
+  city: String!
+
+  """country"""
+  country: String!
+
+  """state"""
+  state: String!
+
+  """zipCode"""
+  zipCode: String!
+
+  """Street Address"""
+  streetAddress: String!
+}
+
+type Location {
+  """type"""
+  type: String!
+
+  """coordinates"""
+  coordinates: [Float!]!
+}
+
+type Apartment {
+  """id"""
+  _id: String!
+
+  """Apartment No"""
+  apartmentNo: String!
+
+  """Total Rooms"""
+  totalRooms: Float!
+
+  """available"""
+  isAvailable: Boolean
+
+  """Location"""
+  location: Location
+
+  """Address"""
+  address: Address
+
+  """Rent"""
+  rentAmount: Float!
+
+  """furnished"""
+  isFurnished: Boolean
+
+  """owner id"""
+  owner_id: String!
+}
+
+type PaginationApartment {
+  pageNo: Float!
+  pageSize: Float!
+  total: Float!
+  data: [Apartment!]!
+}
+
+type UserFavorite {
+  _id: String!
+  apartment_id: String!
+  user_id: String!
+  createdAt: String!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  users: [User!]!
+  user(id: String!): User!
+  apartments(
+    """Custom filter options based on fields"""
+    filters: ApartmentFilterDto
+
+    """Pagination option (page no & limit)"""
+    pagination: PaginationParams
+  ): PaginationApartment!
+  apartment(id: Int!): Apartment!
+  userFavorites: [UserFavorite!]!
+  userFavorite(_id: String!): UserFavorite!
+}
+
+input ApartmentFilterDto {
+  rooms: Float
+  country: String
+  city: String
+  location: [Float!]
+  minDistance: Float
+  maxDistance: Float
+}
+
+input PaginationParams {
+  page: Float
+  limit: Float
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
+  createApartment(createApartmentInput: CreateApartmentInput!): Apartment!
+  updateApartment(updateApartmentInput: UpdateApartmentInput!): Apartment!
+  removeApartment(id: String!): Apartment!
+  createUserFavorite(createUserFavoriteInput: CreateUserFavoriteInput!): UserFavorite!
+  removeUserFavorite(_id: String!): UserFavorite!
+}
+
+input CreateUserInput {
+  """email of user"""
+  email: String!
+
+  """Password of user"""
+  password: String!
+
+  """name of user"""
+  name: String
+
+  """mobileNo of user"""
+  mobileNo: String
+}
+
+input UpdateUserInput {
+  """email of user"""
+  email: String
+
+  """Password of user"""
+  password: String
+
+  """name of user"""
+  name: String
+
+  """mobileNo of user"""
+  mobileNo: String
+  id: String!
+}
+
+input CreateApartmentInput {
+  """_id"""
+  _id: String
+
+  """Apartment No"""
+  apartmentNo: String!
+
+  """Total Rooms"""
+  totalRooms: Float!
+
+  """Rent amount"""
+  rentAmount: Float!
+
+  """Available"""
+  isAvailable: Boolean
+
+  """Location"""
+  location: LocationInput
+
+  """Address"""
+  address: AddressInput
+
+  """Furnished"""
+  isFurnished: Boolean
+
+  """Owner id"""
+  owner_id: String
+}
+
+input LocationInput {
+  """type"""
+  type: String!
+
+  """coordinates"""
+  coordinates: [Float!]!
+}
+
+input AddressInput {
+  """City"""
+  city: String!
+
+  """Country"""
+  country: String!
+
+  """State"""
+  state: String!
+
+  """zipCode"""
+  zipCode: String!
+
+  """Street Address"""
+  streetAddress: String!
+}
+
+input UpdateApartmentInput {
+  _id: String
+
+  """Apartment No"""
+  apartmentNo: String
+
+  """Total Rooms"""
+  totalRooms: Float
+
+  """Rent amount"""
+  rentAmount: Float
+
+  """Available"""
+  isAvailable: Boolean
+
+  """Location"""
+  location: LocationInput
+
+  """Address"""
+  address: AddressInput
+
+  """Furnished"""
+  isFurnished: Boolean
+
+  """Owner id"""
+  owner_id: String
+}
+
+input CreateUserFavoriteInput {
+  _id: String
+  apartment_id: String!
+  user_id: String
+}
