@@ -12,7 +12,7 @@ MONODB_CONN_STR=mongodb://localhost:27017/findMyHome
 
 ## Description
 
-[Nest] framework TypeScript + GQL will
+[Nest] framework TypeScript + GQL
 
 ## Installation
 
