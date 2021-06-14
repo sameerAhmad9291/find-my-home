@@ -1,13 +1,12 @@
-# MongoDB install required before running this project Or You can use Docker hub for pull mongo image.
+## MongoDB install required before running this project Or You can use Docker hub for pull mongo image.
 
 ## Environemnt variables with sample values.
-# JWT configurations
+### JWT configurations
 PORT=3000
 JWT_PRIVATE_KEY=123123
 JWT_PUBLIC_KEY=5654465
 JWT_EXPIRES_IN_MINUTES=60
-
-# MongoDB connection string
+### MongoDB connection string
 MONODB_CONN_STR=mongodb://localhost:27017/findMyHome
 
 ## Description
