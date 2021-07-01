@@ -1,0 +1,24 @@
+version: "3"
+services:
+  server-side-app:
+    image: find-my-home
+    container_name: find-my-home
+    restart: always
+    build: .
+    # links:
+    #   - mongo
+    environment:
+      - PORT=3000
+      - JWT_PRIVATE_KEY=123123
+      - JWT_PUBLIC_KEY=5654465
+      - JWT_EXPIRES_IN_MINUTES=60
+      - MONODB_CONN_STR=mongodb://localhost:27017/findMyHomedb
+    ports:
+      - "3000:3000"
+  # mongo:
+  #   container_name: mongo
+  #   image: mongo
+  #   volumes:
+  #     - ./data:/data/findMyHomedb
+  #   ports:
+  #     - "27017:27017"
