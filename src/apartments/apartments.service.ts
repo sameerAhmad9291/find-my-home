@@ -40,7 +40,7 @@ export class ApartmentsService {
         }
       }
     ];
-    if (filters.location) {
+    if (filters?.location) {
       aggregatePipeLines.unshift({
         $geoNear: {
           near: { type: "Point", coordinates: filters.location },
@@ -56,7 +56,7 @@ export class ApartmentsService {
           ...(filters.maxDistance && { maxDistance: filters.maxDistance }),
         }
       })
-    } else if (filters.country || filters.city || filters.rooms) {
+    } else if (filters?.country || filters?.city || filters?.rooms) {
       aggregatePipeLines.unshift({
         $match: {
           ...(filters.city && { 'address.city': filters.city }),
