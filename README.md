@@ -23,12 +23,6 @@ $ npm install
 ```bash
 # Development mode
 $ npm run start
-
-# Watch mode
-$ npm run start:dev
-
-# Production mode
-$ npm run start:prod
 ```
 
 ## GraphQL Mutations and Queries
