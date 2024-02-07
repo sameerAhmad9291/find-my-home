@@ -1,17 +1,16 @@
-## MongoDB install required before running this project Or You can use Docker hub for pull mongo image.
+# Project Overview
 
-## Environemnt variables with sample values.
-### JWT configurations
+This project is built with NestJS, TypeScript, GraphQL, MongoDB, and JWT for user management, apartment listings, and authentication. MongoDB needs to be installed before running the project, or <br/> you can use Docker Hub to pull the MongoDB image.
+
+## Environment Variables
+
+```plaintext
 PORT=3000
 JWT_PRIVATE_KEY=123123
 JWT_PUBLIC_KEY=5654465
 JWT_EXPIRES_IN_MINUTES=60
-### MongoDB connection string
 MONODB_CONN_STR=mongodb://localhost:27017/findMyHome
-
-## Description
-
-[Nest] framework TypeScript + GQL
+```
 
 ## Installation
 
@@ -19,104 +18,118 @@ MONODB_CONN_STR=mongodb://localhost:27017/findMyHome
 $ npm install
 ```
 
-## Running the app
+## Running the App
 
 ```bash
-# development
+# Development mode
 $ npm run start
 
-# watch mode
+# Watch mode
 $ npm run start:dev
 
-# production mode
+# Production mode
 $ npm run start:prod
 ```
 
-## Test
+## GraphQL Mutations and Queries
 
-```bash
-# unit tests
-$ npm run test
+### Create New User Mutation
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```graphql
+mutation {
+  createUser(createUserInput: {
+    email: "test@hotmail.com",
+    password: "a"
+  }) {
+    _id
+    email
+    password
+  }
+}
 ```
 
-## APIs.
+### Login API
 
-- create new user using mutation
-    `mutation{
-    createUser(createUserInput: {
-        email: "test@hotmail.com",
-        password: "a"
-    }){
-        _id
-        email
-        password
-    }
-    }`
+Send a POST request to `/auth/login` with the following body:
 
-- `POST` API login using path .../auth/login, api will response `access_token`
-`{
+```json
+{
     "username": "test@hotmail.com",
     "password": "a"
-}`
+}
+```
 
-NOTE: Now you have to send authorization bearer request header in all requests.
-`{ "authorization": "Bearer TOKEN" }`
+**Note**: Include the `authorization` bearer request header in all subsequent requests:
 
-- Create Apartment mutation && authorization bearer request header.
-`mutation{
+```json
+{
+    "authorization": "Bearer TOKEN"
+}
+```
+
+### Create Apartment Mutation
+
+```graphql
+mutation {
   createApartment(createApartmentInput: {
-   apartmentNo: "BAK-12",
+    apartmentNo: "BAK-12",
     totalRooms: 2,
     rentAmount: 2000,
     location: {
       type: "point",
       coordinates: [15.826082,11.112383]
     }
-  }){
-   _id
-    totalRooms,
-    apartmentNo,
+  }) {
+    _id
+    totalRooms
+    apartmentNo
     owner_id
   }
-}`
+}
+```
 
-- Get Apartments query
-`query{
+### Get Apartments Query
+
+```graphql
+query {
   result: apartments(filters: {
-    location: [15.826082,11.112393],
+    location: [15.826082,11.112393]
   },
-    pagination: {limit: 3, page: 1}){
-    pageNo,
-      pageSize,
-      total
-    data{
-      _id,
-      apartmentNo,
-      totalRooms,
-      isAvailable,
-      isFurnished,
-      rentAmount,
-      location{
-        coordinates,
+  pagination: {limit: 3, page: 1}) {
+    pageNo
+    pageSize
+    total
+    data {
+      _id
+      apartmentNo
+      totalRooms
+      isAvailable
+      isFurnished
+      rentAmount
+      location {
+        coordinates
         type
       }
     }
   }
-}`
+}
+```
 
-- Get User favorite apartment list.
-`query{
-  result: userFavorites{
-   _id
+### Get User Favorite Apartment List
+
+```graphql
+query {
+  result: userFavorites {
+    _id
     apartment_id
     user_id
   }
-}`
+}
+```
 
-## Graphql playground access http://localhost:`PORT`/graphql
+## Access GraphQL Playground
+
+Visit http://localhost:PORT/graphql to access the GraphQL playground.
+```
+
+This formal GitHub README provides a structured overview of the project, its environment variables, installation instructions, GraphQL mutations, queries, and access to the GraphQL playground.
